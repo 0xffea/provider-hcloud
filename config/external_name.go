@@ -11,6 +11,10 @@ import "github.com/crossplane/upjet/pkg/config"
 var ExternalNameConfigs = map[string]config.ExternalName{
 	// Import requires using a randomly generated ID from provider: nl-2e21sda
 	"hcloud_network": config.IdentifierFromProvider,
+	"hcloud_network_subnet": config.IdentifierFromProvider,
+	"hcloud_network_route": config.IdentifierFromProvider,
+	"hcloud_server": config.IdentifierFromProvider,
+	"hcloud_server_network": config.IdentifierFromProvider,
 }
 
 // ExternalNameConfigurations applies all external name configs listed in the

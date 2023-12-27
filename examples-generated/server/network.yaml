@@ -1,0 +1,61 @@
+apiVersion: server.hcloud.crossplane.io/v1alpha1
+kind: Network
+metadata:
+  annotations:
+    meta.upbound.io/example-id: server/v1alpha1/network
+  labels:
+    testing.upbound.io/example-name: srvnetwork
+  name: srvnetwork
+spec:
+  forProvider:
+    ip: 10.0.1.5
+    networkId: ${hcloud_network.mynet.id}
+    serverId: ${hcloud_server.node1.id}
+
+---
+
+apiVersion: hcloud.crossplane.io/v1alpha1
+kind: Network
+metadata:
+  annotations:
+    meta.upbound.io/example-id: server/v1alpha1/network
+  labels:
+    testing.upbound.io/example-name: mynet
+  name: mynet
+spec:
+  forProvider:
+    ipRange: 10.0.0.0/8
+    name: my-net
+
+---
+
+apiVersion: network.hcloud.crossplane.io/v1alpha1
+kind: Subnet
+metadata:
+  annotations:
+    meta.upbound.io/example-id: server/v1alpha1/network
+  labels:
+    testing.upbound.io/example-name: foonet
+  name: foonet
+spec:
+  forProvider:
+    ipRange: 10.0.1.0/24
+    networkId: ${hcloud_network.mynet.id}
+    networkZone: eu-central
+    type: cloud
+
+---
+
+apiVersion: hcloud.crossplane.io/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.upbound.io/example-id: server/v1alpha1/network
+  labels:
+    testing.upbound.io/example-name: node1
+  name: node1
+spec:
+  forProvider:
+    image: debian-11
+    name: node1
+    serverType: cx11
